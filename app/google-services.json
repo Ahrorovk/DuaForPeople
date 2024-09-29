@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "672421580514",
+    "firebase_url": "https://duaforpeople-c45de-default-rtdb.firebaseio.com",
+    "project_id": "duaforpeople-c45de",
+    "storage_bucket": "duaforpeople-c45de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672421580514:android:55ef1a47663a05f0b358bb",
+        "android_client_info": {
+          "package_name": "com.ahrorovk.duaforpeople"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCju1PPv9d53C4OapC0bYvFwBV_NIRQB50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
