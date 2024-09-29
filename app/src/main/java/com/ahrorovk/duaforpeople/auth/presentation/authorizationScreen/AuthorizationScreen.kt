@@ -19,10 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.ahrorovk.duaforpeople.core.presentation.components.CustomButton
@@ -31,12 +29,9 @@ import com.ahrorovk.duaforpeople.core.presentation.components.CustomTextField
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AuthorizationScreen(
-    modifier: Modifier = Modifier,
     state: AuthorizationState,
     onEvent: (AuthorizationEvent) -> Unit
 ) {
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     LaunchedEffect(state.authResponseState) {
         if (state.authResponseState.responseState?.user != null) {

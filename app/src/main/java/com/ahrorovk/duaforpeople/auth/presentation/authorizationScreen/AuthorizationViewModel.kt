@@ -74,7 +74,7 @@ class AuthorizationViewModel @Inject constructor(
                                 )
                             )
                         }
-                        Log.e("TAG", "onEventSuccess: ${response?.user?.uid}")
+                        Log.v("Success", "authorizationSuccess: ${response?.user?.uid}")
                     }
 
                     is Resource.Error -> {
@@ -85,7 +85,7 @@ class AuthorizationViewModel @Inject constructor(
                                 )
                             )
                         }
-                        Log.e("TAG", "onEventError: ${result.message}")
+                        Log.e("Error", "authorizationError: ${result.message}")
                     }
 
                     is Resource.Loading -> {

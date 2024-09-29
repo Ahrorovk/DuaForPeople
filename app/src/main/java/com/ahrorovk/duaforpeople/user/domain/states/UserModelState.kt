@@ -5,5 +5,5 @@ import com.ahrorovk.duaforpeople.user.domain.models.UserModel
 data class UserModelState(
     val error: String = "",
     val response: UserModel? = null,
-    val isLoading:Boolean = false
+    val isLoading: Boolean = false
 )

@@ -2,7 +2,6 @@ package com.ahrorovk.duaforpeople.core.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -35,7 +34,9 @@ fun CustomButton(
         },
         enabled = enabled,
         shape = RoundedCornerShape(shape.dp),
-        modifier = modifier.height(height.dp).fillMaxWidth(),
+        modifier = modifier
+            .height(height.dp)
+            .fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             containerColor = if (selected) color else Color(
                 0xFFDADADA

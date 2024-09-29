@@ -1,6 +1,5 @@
 package com.ahrorovk.duaforpeople.user.data.network
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import com.ahrorovk.duaforpeople.user.domain.UserRepository
 import com.ahrorovk.duaforpeople.user.domain.models.UserModel
@@ -34,7 +33,6 @@ class UserRepositoryImpl @Inject constructor(
                     }
             }
         delay(1000)
-        Log.e("SUCCESS", "STATE->${state.value}")
         return state.value
     }
 

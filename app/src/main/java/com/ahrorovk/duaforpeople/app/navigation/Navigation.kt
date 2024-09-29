@@ -15,8 +15,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -46,7 +44,6 @@ fun Navigation(
     val bottomSheetNavigator = rememberBottomSheetNavigator()
     val navController = rememberNavController(bottomSheetNavigator)
     val scaffoldState = rememberScaffoldState()
-    val topBarTitle = remember { mutableStateOf("") }
 
     val currentScreen = navController.currentBackStackEntryAsState().value?.destination?.route ?: ""
     ModalBottomSheetLayout(bottomSheetNavigator) {
@@ -64,7 +61,7 @@ fun Navigation(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = getTopBarTitle(currentScreen).ifEmpty { topBarTitle.value },
+                                text = getTopBarTitle(currentScreen),
                                 color = MaterialTheme.colorScheme.onBackground
                             )
                         }
@@ -79,7 +76,6 @@ fun Navigation(
                         actions = {
                             if (currentScreen == Routes.UserScreen.route) {
                                 CustomIconButton(icon = Icons.Default.ExitToApp) {
-//                                    onEvent(NavigationEvent.Clear)
                                     navController.navigate(Routes.AuthorizationScreen.route) {
                                         popUpTo(Routes.UserScreen.route) {
                                             inclusive = true
@@ -96,7 +92,7 @@ fun Navigation(
                 navController = navController,
                 startDestination = Graph.MainGraph.route
             ) {
-                CallNavGraph(navController, topBarTitle, scaffoldState)
+                CallNavGraph(navController, scaffoldState)
             }
         }
     }

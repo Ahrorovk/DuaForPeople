@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahrorovk.duaforpeople.core.data.local.DataStoreManager
-import com.ahrorovk.duaforpeople.core.util.Resource
 import com.ahrorovk.duaforpeople.core.domain.models.DeeplinkRequest
+import com.ahrorovk.duaforpeople.core.util.Resource
 import com.ahrorovk.duaforpeople.main.domain.request.use_cases.AddDeeplinkRequestUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -48,7 +48,7 @@ class RequestViewModel @Inject constructor(
                 }
             }
 
-            is RequestEvent.OnNameChange->{
+            is RequestEvent.OnNameChange -> {
                 _state.update {
                     it.copy(
                         name = event.state
@@ -86,6 +86,7 @@ class RequestViewModel @Inject constructor(
                             answer = result.message.toString()
                         )
                     }
+                    Log.v("Error", "AddDeeplinkRequestError->${result.message}")
                 }
 
                 is Resource.Loading -> {
@@ -103,7 +104,7 @@ class RequestViewModel @Inject constructor(
                         )
                     }
 
-                    Log.e("Success", "AddDeeplinkRequestSuccess${result.data}")
+                    Log.v("Success", "AddDeeplinkRequestSuccess->${result.data}")
                 }
             }
         }.launchIn(viewModelScope)

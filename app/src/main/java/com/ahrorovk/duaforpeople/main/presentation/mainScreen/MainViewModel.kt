@@ -100,7 +100,7 @@ class MainViewModel @Inject constructor(
 
                         is Resource.Success -> {
                             val response = result.data
-                            Log.e("Success", "SuccessDuaRequestsByUid->${response}")
+                            Log.v("Success", "SuccessDuaRequestsByUid->${response}")
 
                             response?.let { res ->
                                 _state.update { it_ ->
@@ -140,7 +140,7 @@ class MainViewModel @Inject constructor(
 
                         is Resource.Success -> {
                             val response = result.data
-                            Log.e("Success", "SuccessDuaRequestsByUid->${response}")
+                            Log.v("Success", "SuccessDuaRequestsByUid->${response}")
                         }
                     }
                 }.launchIn(viewModelScope)

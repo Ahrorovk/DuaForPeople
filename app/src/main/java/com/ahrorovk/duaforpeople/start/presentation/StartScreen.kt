@@ -13,13 +13,12 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun StartScreen(
-    modifier: Modifier = Modifier,
     state: StartState,
     onEvent: (StartEvent) -> Unit
 ) {
-    LaunchedEffect(state.uuid) {
+    LaunchedEffect(state.uid) {
         delay(1000)
-        if (state.uuid.isNotEmpty())
+        if (state.uid.isNotEmpty())
             onEvent(StartEvent.GoToMain)
         else onEvent(StartEvent.GoToAuthorization)
     }

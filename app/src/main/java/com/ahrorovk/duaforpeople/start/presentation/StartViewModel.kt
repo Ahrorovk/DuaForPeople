@@ -27,7 +27,7 @@ class StartViewModel @Inject constructor(
         dataStoreManager.getAccessToken.onEach { value ->
             _state.update {
                 it.copy(
-                    uuid = value
+                    uid = value
                 )
             }
         }.launchIn(viewModelScope)

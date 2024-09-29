@@ -19,15 +19,16 @@ class AuthRepositoryImpl @Inject constructor(
         .await()
 
     val actionCodeSettings = ActionCodeSettings.newBuilder()
-        .setUrl("https://duaforpeople-c45de.firebaseapp.com/__/auth/action")// Your app's URL
-        .setHandleCodeInApp(true) // This is important!
+        .setUrl("https://duaforpeople-c45de.firebaseapp.com/__/auth/action")
+        .setHandleCodeInApp(true)
         .setAndroidPackageName(
             "com.ahrorovk.duaforpeople",
             true,
             "12"
         )
         .build()
+
     override suspend fun verifyEmail(email: String): Void? = firebaseAuth
-            .sendSignInLinkToEmail(email, actionCodeSettings)
-            .await()
+        .sendSignInLinkToEmail(email, actionCodeSettings)
+        .await()
 }

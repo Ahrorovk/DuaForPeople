@@ -55,8 +55,8 @@ fun RowScope.BottomNavItem(
                 contentDescription = "BottomNavIcon"
             )
         },
-        selectedContentColor = MaterialTheme.colorScheme.onBackground,
-        unselectedContentColor = MaterialTheme.colorScheme.onPrimary
+        selectedContentColor = MaterialTheme.colorScheme.background,
+        unselectedContentColor = MaterialTheme.colorScheme.onBackground
     )
 }
 

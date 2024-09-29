@@ -14,16 +14,16 @@ class GetDuaOfReceiverFromDeeplinkUseCase @Inject constructor(
 ) {
     operator fun invoke(deeplink: String): Flow<Resource<DeeplinkRequestState>> {
         return flow {
-            Resource.Loading<String>()
-            val state = mutableStateOf(DeeplinkRequestState())
-            repository.getDuaOfReceiverFromDeeplink(deeplink) {
-                state.value = it
-            }
-            delay(500)
-            if (state.value.response != null) {
+            try {
+                Resource.Loading<String>()
+                val state = mutableStateOf(DeeplinkRequestState())
+                repository.getDuaOfReceiverFromDeeplink(deeplink) {
+                    state.value = it
+                }
+                delay(500)
                 emit(Resource.Success<DeeplinkRequestState>(state.value))
-            } else {
-                emit(Resource.Error<DeeplinkRequestState>("Error-> ${state.value}"))
+            } catch (e: Exception) {
+                emit(Resource.Error<DeeplinkRequestState>(e.message.toString()))
             }
         }
     }

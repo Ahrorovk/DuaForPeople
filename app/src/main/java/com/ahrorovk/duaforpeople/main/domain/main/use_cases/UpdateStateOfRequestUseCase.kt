@@ -17,7 +17,6 @@ class UpdateStateOfRequestUseCase @Inject constructor(
             try {
                 emit(Resource.Loading())
                 repository.updateStateOfRequest(duaRequest) {
-                    Log.e("UpdateStateOfRequestSuccess", "UpdateStateOfRequestSuccess->$it")
                 }
                 delay(1000)
                 emit(Resource.Success("Success"))

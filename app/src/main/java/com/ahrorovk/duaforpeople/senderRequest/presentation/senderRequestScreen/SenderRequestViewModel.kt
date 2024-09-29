@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahrorovk.duaforpeople.core.data.local.DataStoreManager
 import com.ahrorovk.duaforpeople.core.domain.models.DuaRequest
-import com.ahrorovk.duaforpeople.core.domain.states.DeeplinkRequestState
 import com.ahrorovk.duaforpeople.core.util.Resource
 import com.ahrorovk.duaforpeople.main.domain.main.use_cases.GetDuaRequestsByUidUseCase
 import com.ahrorovk.duaforpeople.senderRequest.domain.senderRequest.use_cases.AddDuaRequestUseCase
@@ -128,7 +127,7 @@ class SenderRequestViewModel @Inject constructor(
                         )
                     }
                     getDuaOfReceiverFromDeeplink()
-                    Log.e("MakeDuaSuccess", "MakeDuaSuccess->${result.data}")
+                    Log.v("MakeDuaSuccess", "MakeDuaSuccess->${result.data}")
                 }
             }
         }.launchIn(viewModelScope)
@@ -162,7 +161,7 @@ class SenderRequestViewModel @Inject constructor(
 
                         is Resource.Success -> {
                             val response = result.data
-                            Log.e("Success", "SuccessDuaRequestsByUid->${response}")
+                            Log.v("Success", "SuccessDuaRequestsByUid->${response}")
 
                             response?.let { res ->
                                 _state.update { it_ ->
@@ -183,7 +182,6 @@ class SenderRequestViewModel @Inject constructor(
     }
 
     private fun getUserById() {
-        Log.e("UidReceiver", "uidReceiver-> ${_state.value.uidReceiver}")
         getUserByIdUseCase.invoke(_state.value.uidReceiver).onEach { result ->
             when (result) {
                 is Resource.Error -> {
@@ -205,7 +203,7 @@ class SenderRequestViewModel @Inject constructor(
                 }
 
                 is Resource.Success -> {
-                    Log.e("Success", "getUserByIdSuccess-> ${result.data}")
+                    Log.v("Success", "getUserByIdSuccess-> ${result.data}")
                     val response = result.data
                     _state.update {
                         it.copy(
@@ -249,7 +247,7 @@ class SenderRequestViewModel @Inject constructor(
                 }
 
                 is Resource.Success -> {
-                    Log.e("Success", "${result.data}")
+                    Log.v("Success", "${result.data}")
                     _state.update {
                         it.copy(
                             isLoading = false
@@ -286,7 +284,7 @@ class SenderRequestViewModel @Inject constructor(
 
                     is Resource.Success -> {
                         result.data?.let { res ->
-                            Log.e("Success", "getDuaOfReceiverFromDeeplinkSuccess->$res")
+                            Log.v("Success", "getDuaOfReceiverFromDeeplinkSuccess->$res")
                             _state.update {
                                 res.response?.let { response ->
                                     it.copy(

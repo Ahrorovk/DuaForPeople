@@ -14,16 +14,16 @@ class AddDuaRequestUseCase @Inject constructor(
 ) {
     operator fun invoke(duaRequest: DuaRequest): Flow<Resource<String>> {
         return flow {
-            Resource.Loading<String>()
-            val state = mutableStateOf("")
-            repository.addDuaRequest(duaRequest) {
-                state.value = it
-            }
-            delay(500)
-            if (state.value.contains("Success")) {
+            try {
+                Resource.Loading<String>()
+                val state = mutableStateOf("")
+                repository.addDuaRequest(duaRequest) {
+                    state.value = it
+                }
+                delay(500)
                 emit(Resource.Success<String>(state.value))
-            } else {
-                emit(Resource.Error<String>("Error-> ${state.value}"))
+            } catch (e: Exception) {
+                emit(Resource.Error<String>(e.message.toString()))
             }
         }
     }

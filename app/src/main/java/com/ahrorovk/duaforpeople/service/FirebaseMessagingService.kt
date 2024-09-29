@@ -80,7 +80,6 @@ class DuaForPeopleFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Log.e("Hello", "FCM-Token ---> \n $token")
     }
 
     override fun onDestroy() {

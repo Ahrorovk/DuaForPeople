@@ -39,13 +39,11 @@ import com.ahrorovk.duaforpeople.user.presentation.UserEvent
 import com.ahrorovk.duaforpeople.user.presentation.UserScreen
 import com.ahrorovk.duaforpeople.user.presentation.UserViewModel
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import kotlinx.coroutines.delay
 
 @RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalMaterialNavigationApi
 fun NavGraphBuilder.CallNavGraph(
     navController: NavController,
-    topBarTitle: MutableState<String>,
     scaffoldState: ScaffoldState
 ) {
     navigation(

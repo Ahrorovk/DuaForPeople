@@ -10,7 +10,7 @@ import javax.inject.Inject
 class VerificationUseCase @Inject constructor(
     private val repository: AuthRepository
 ) {
-    suspend fun invoke(email: String): Flow<Resource<Void?>> {
+    fun invoke(email: String): Flow<Resource<Void?>> {
         return flow {
             emit(Resource.Loading())
             val result = repository.verifyEmail(email)

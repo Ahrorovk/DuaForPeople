@@ -84,7 +84,7 @@ class UserViewModel @Inject constructor(
                 }
 
                 is Resource.Success -> {
-                    Log.e("Success", "AddLimitsSuccess-> ${result.data}")
+                    Log.v("Success", "AddLimitsSuccess-> ${result.data}")
                     val response = result.data
                     _state.update {
                         it.copy(
@@ -118,7 +118,7 @@ class UserViewModel @Inject constructor(
                 }
 
                 is Resource.Success -> {
-                    Log.e("Success", "getUserByIdSuccess-> ${result.data}")
+                    Log.v("Success", "getUserByIdSuccess-> ${result.data}")
                     val response = result.data
                     _state.update {
                         it.copy(

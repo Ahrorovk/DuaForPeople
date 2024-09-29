@@ -2,9 +2,9 @@ package com.ahrorovk.duaforpeople.main.domain.main.use_cases
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import com.ahrorovk.duaforpeople.core.domain.states.DuaRequestState
 import com.ahrorovk.duaforpeople.core.util.Resource
 import com.ahrorovk.duaforpeople.main.domain.MainRepository
-import com.ahrorovk.duaforpeople.core.domain.states.DuaRequestState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,7 +27,6 @@ class GetDuaRequestsByUidUseCase @Inject constructor(
                 }
             } catch (e: Exception) {
                 emit(Resource.Error<DuaRequestState>(e.message.toString()))
-                Log.e("Error", "SuccessDuaRequestsByUidError->${e.message}")
             }
         }
     }

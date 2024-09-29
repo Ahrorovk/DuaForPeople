@@ -1,6 +1,5 @@
 package com.ahrorovk.duaforpeople.senderRequest.data.network
 
-import android.util.Log
 import com.ahrorovk.duaforpeople.core.domain.models.DeeplinkRequest
 import com.ahrorovk.duaforpeople.core.domain.models.DuaRequest
 import com.ahrorovk.duaforpeople.core.domain.states.DeeplinkRequestState
@@ -34,14 +33,10 @@ class SenderRequestRepositoryImpl @Inject constructor(
                 .document(id)
                 .set(duaRequest.copy(id = id))
                 .addOnSuccessListener {
-                    Log.e("SUCCESS", "GET_SUCCESS_addDuaRequest->$it")
-
                     onResult("Success")
                 }
                 .addOnFailureListener {
-                    Log.e("ERROR", "GET_ERROR_addDuaRequest->$it")
-
-                    onResult("${it.message}")
+                    throw IllegalArgumentException(it.message.toString())
                 }
         }
     }
@@ -66,12 +61,10 @@ class SenderRequestRepositoryImpl @Inject constructor(
             .document(deeplink)
             .addSnapshotListener { value, error ->
                 if (value != null) {
-                    Log.e("SUCCESS", "GET_SUCCESS->$value\n ${value.data}")
                     onResult(DeeplinkRequestState(response = value.toObject()))
                 }
                 if (error != null) {
-                    onResult(DeeplinkRequestState(error = error.message.toString()))
-                    return@addSnapshotListener
+                    throw IllegalArgumentException(error.message.toString())
                 }
             }
     }

@@ -12,7 +12,7 @@ class AuthorizationUseCase @Inject constructor(
     private val repository: AuthRepository
 ) {
 
-    suspend fun invoke(email: String, password: String): Flow<Resource<AuthResult>> {
+    fun invoke(email: String, password: String): Flow<Resource<AuthResult>> {
         return flow {
             emit(Resource.Loading())
             val result = repository.loginUser(email, password)

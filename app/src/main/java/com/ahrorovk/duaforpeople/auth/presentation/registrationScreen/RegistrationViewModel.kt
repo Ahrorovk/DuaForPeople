@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahrorovk.duaforpeople.auth.domain.registr.states.RegistrResponseState
 import com.ahrorovk.duaforpeople.auth.domain.registr.use_cases.RegistrationUseCase
-import com.ahrorovk.duaforpeople.auth.domain.registr.use_cases.VerificationUseCase
 import com.ahrorovk.duaforpeople.core.data.local.DataStoreManager
 import com.ahrorovk.duaforpeople.core.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
     private val dataStoreManager: DataStoreManager,
-    private val registrationUseCase: RegistrationUseCase,
-    private val verificationUseCase: VerificationUseCase
+    private val registrationUseCase: RegistrationUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(RegistrationState())
     val state = _state.stateIn(
@@ -69,28 +67,6 @@ class RegistrationViewModel @Inject constructor(
                                 (response?.user?.uid ?: 0).toString()
                             )
                         }
-                        verificationUseCase.invoke(_state.value.email).collect { res ->
-                            when (res) {
-                                is Resource.Success -> {
-                                    val response = res.data
-                                    Log.e("TAG", "verifySuccess: $response")
-                                }
-
-                                is Resource.Error -> {
-                                    Log.e("TAG", "verifyError: ${res.message}")
-                                }
-
-                                is Resource.Loading -> {
-                                    _state.update {
-                                        it.copy(
-                                            registrationState = RegistrResponseState(
-                                                isLoading = true
-                                            )
-                                        )
-                                    }
-                                }
-                            }
-                        }
                         _state.update {
                             it.copy(
                                 registrationState = RegistrResponseState(
@@ -98,7 +74,7 @@ class RegistrationViewModel @Inject constructor(
                                 )
                             )
                         }
-                        Log.e("TAG", "onEventSuccess: ${response?.user?.uid}")
+                        Log.v("Success", "registrationSuccess: ${response?.user?.uid}")
                     }
 
                     is Resource.Error -> {
@@ -109,7 +85,7 @@ class RegistrationViewModel @Inject constructor(
                                 )
                             )
                         }
-                        Log.e("TAG", "onEventError: ${result.message}")
+                        Log.e("Error", "registrationError: ${result.message}")
                     }
 
                     is Resource.Loading -> {

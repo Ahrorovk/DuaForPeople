@@ -1,6 +1,5 @@
 package com.ahrorovk.duaforpeople.senderRequest.domain.senderRequest.use_cases
 
-import android.util.Log
 import com.ahrorovk.duaforpeople.core.domain.models.DeeplinkRequest
 import com.ahrorovk.duaforpeople.core.util.Resource
 import com.ahrorovk.duaforpeople.senderRequest.domain.SenderRequestRepository
@@ -17,7 +16,7 @@ class MakeDuaUseCase @Inject constructor(
             try {
                 emit(Resource.Loading())
                 repository.makeDua(deeplinkRequest) {
-                    Log.e("MakeDua", "makeDuaSuccess-> $it")
+
                 }
                 delay(1000)
                 emit(Resource.Success("Success"))
