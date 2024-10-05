@@ -14,7 +14,7 @@ class LinkRepositoryImpl @Inject constructor(
     override val database: FirebaseFirestore = Firebase.firestore
 
     override suspend fun getDeepLinksByUid(uid: String): List<DeeplinkRequest> {
-        val links = mutableListOf(DeeplinkRequest())
+        val links = mutableListOf<DeeplinkRequest>()
         database.collection("deeplinks")
             .whereEqualTo("uidReceiver", uid)
             .addSnapshotListener { value, error ->

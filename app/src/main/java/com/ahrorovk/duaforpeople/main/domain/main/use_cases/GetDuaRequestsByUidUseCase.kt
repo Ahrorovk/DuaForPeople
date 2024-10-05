@@ -1,6 +1,5 @@
 package com.ahrorovk.duaforpeople.main.domain.main.use_cases
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import com.ahrorovk.duaforpeople.core.domain.states.DuaRequestState
 import com.ahrorovk.duaforpeople.core.util.Resource

@@ -23,6 +23,9 @@ import com.ahrorovk.duaforpeople.auth.presentation.registrationScreen.Registrati
 import com.ahrorovk.duaforpeople.core.util.Constants
 import com.ahrorovk.duaforpeople.core.util.Graph
 import com.ahrorovk.duaforpeople.core.util.Routes
+import com.ahrorovk.duaforpeople.link.presentation.linkScreen.LinkEvent
+import com.ahrorovk.duaforpeople.link.presentation.linkScreen.LinkScreen
+import com.ahrorovk.duaforpeople.link.presentation.linkScreen.LinkViewModel
 import com.ahrorovk.duaforpeople.main.presentation.mainScreen.MainEvent
 import com.ahrorovk.duaforpeople.main.presentation.mainScreen.MainScreen
 import com.ahrorovk.duaforpeople.main.presentation.mainScreen.MainViewModel
@@ -177,6 +180,19 @@ fun NavGraphBuilder.CallNavGraph(
             val viewModel = hiltViewModel<RequestViewModel>()
             val state = viewModel.state.collectAsState()
             RequestScreen(state = state.value) { event ->
+                when (event) {
+                    else -> viewModel.onEvent(event)
+                }
+            }
+        }
+
+        composable(Routes.LinkScreen.route) {
+            val viewModel = hiltViewModel<LinkViewModel>()
+            val state = viewModel.state.collectAsState()
+            LaunchedEffect(Unit) {
+                viewModel.onEvent(LinkEvent.GetDeepLinksByUid)
+            }
+            LinkScreen(state.value) { event ->
                 when (event) {
                     else -> viewModel.onEvent(event)
                 }

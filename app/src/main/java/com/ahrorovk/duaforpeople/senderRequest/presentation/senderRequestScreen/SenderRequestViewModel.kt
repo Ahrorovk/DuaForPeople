@@ -7,9 +7,11 @@ import com.ahrorovk.duaforpeople.core.data.local.DataStoreManager
 import com.ahrorovk.duaforpeople.core.domain.models.DuaRequest
 import com.ahrorovk.duaforpeople.core.util.Resource
 import com.ahrorovk.duaforpeople.main.domain.main.use_cases.GetDuaRequestsByUidUseCase
+import com.ahrorovk.duaforpeople.senderRequest.data.model.Notification
 import com.ahrorovk.duaforpeople.senderRequest.domain.senderRequest.use_cases.AddDuaRequestUseCase
 import com.ahrorovk.duaforpeople.senderRequest.domain.senderRequest.use_cases.GetDuaOfReceiverFromDeeplinkUseCase
 import com.ahrorovk.duaforpeople.senderRequest.domain.senderRequest.use_cases.MakeDuaUseCase
+import com.ahrorovk.duaforpeople.senderRequest.domain.senderRequest.use_cases.SendPushNotificationUseCase
 import com.ahrorovk.duaforpeople.user.domain.use_cases.GetUserByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,7 +31,8 @@ class SenderRequestViewModel @Inject constructor(
     private val getDuaOfReceiverFromDeeplinkUseCase: GetDuaOfReceiverFromDeeplinkUseCase,
     private val getUserByIdUseCase: GetUserByIdUseCase,
     private val getDuaRequestsByUidUseCase: GetDuaRequestsByUidUseCase,
-    private val makeDuaUseCase: MakeDuaUseCase
+    private val makeDuaUseCase: MakeDuaUseCase,
+    private val sendPushNotificationUseCase: SendPushNotificationUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SenderRequestState())
@@ -44,6 +47,14 @@ class SenderRequestViewModel @Inject constructor(
             _state.update {
                 it.copy(
                     uid = value
+                )
+            }
+        }.launchIn(viewModelScope)
+
+        dataStoreManager.getFcmTokenKey.onEach { value ->
+            _state.update {
+                it.copy(
+                    fcmToken = value
                 )
             }
         }.launchIn(viewModelScope)
@@ -127,6 +138,10 @@ class SenderRequestViewModel @Inject constructor(
                         )
                     }
                     getDuaOfReceiverFromDeeplink()
+                    sendPushNotification(
+                        "Maked dua",
+                        _state.value.name + " maked dua for ${_state.value.deeplinkRequest.name}"
+                    )
                     Log.v("MakeDuaSuccess", "MakeDuaSuccess->${result.data}")
                 }
             }
@@ -248,6 +263,10 @@ class SenderRequestViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     Log.v("Success", "${result.data}")
+                    sendPushNotification(
+                        "Asked dua",
+                        _state.value.name + " asked dua:\n ${_state.value.dua}"
+                    )
                     _state.update {
                         it.copy(
                             isLoading = false
@@ -296,6 +315,46 @@ class SenderRequestViewModel @Inject constructor(
                             }
                             getUserById()
                             getDuaRequestsByUid()
+                        }
+                    }
+                }
+            }.launchIn(viewModelScope)
+    }
+
+    private fun sendPushNotification(title: String, body: String) {
+        sendPushNotificationUseCase.invoke(
+            Notification(
+                body,
+                title,
+                _state.value.deeplinkRequest.fcmTokenSender
+            )
+        )
+            .onEach { result ->
+                when (result) {
+                    is Resource.Error -> {
+                        Log.e("Error", "sendPushNotificationError->${result.message}")
+                        _state.update {
+                            it.copy(
+                                response = result.message.toString(),
+                                isLoading = false
+                            )
+                        }
+                    }
+
+                    is Resource.Loading -> {
+                        _state.update {
+                            it.copy(
+                                isLoading = true
+                            )
+                        }
+                    }
+
+                    is Resource.Success -> {
+                        Log.v("Success", "sendPushNotificationSuccess->${result.data}")
+                        _state.update {
+                            it.copy(
+                                response = result.data?.status ?: ""
+                            )
                         }
                     }
                 }

@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.ahrorovk.duaforpeople.core.presentation.components.CustomButton
-import com.ahrorovk.duaforpeople.core.presentation.components.CustomProgressIndicator
 import com.ahrorovk.duaforpeople.core.presentation.components.CustomTextField
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -34,13 +33,11 @@ fun SenderRequestScreen(
     val context = LocalContext.current
     val swipeRefreshState = rememberSwipeRefreshState(state.isLoading)
 
-    CustomProgressIndicator(state.isLoading)
-
     SwipeRefresh(
         modifier = Modifier.fillMaxSize(),
         state = swipeRefreshState,
         onRefresh = {
-            onEvent(SenderRequestEvent.GetUserById)
+//            onEvent(SenderRequestEvent.GetUserById)
             if (state.deeplink.isNotEmpty())
                 onEvent(SenderRequestEvent.GetDuaOfReceiverFromDeeplink)
         }
@@ -72,7 +69,7 @@ fun SenderRequestScreen(
                             Modifier
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(22.dp))
-                                .background(Color(0x4AD7D7D7)),
+                                .background(MaterialTheme.colorScheme.secondary),
                             contentAlignment = Alignment.Center
                         ) {
 
@@ -99,7 +96,14 @@ fun SenderRequestScreen(
                                         vertical = 24.dp
                                     )
                                 ) {
-                                    onEvent(SenderRequestEvent.MakeDua)
+                                    if (state.name.isNotEmpty())
+                                        onEvent(SenderRequestEvent.MakeDua)
+                                    else
+                                        Toast.makeText(
+                                            context,
+                                            "Please fill in your name",
+                                            Toast.LENGTH_LONG
+                                        ).show()
                                 }
                             }
                         }
@@ -146,7 +150,7 @@ fun SenderRequestScreen(
                         else {
                             Toast.makeText(
                                 context,
-                                "${state.deeplinkRequestState.response?.name}`s request limit has been reached",
+                                "${state.deeplinkRequest.name}`s request limit has been reached",
                                 Toast.LENGTH_LONG
                             ).show()
                         }

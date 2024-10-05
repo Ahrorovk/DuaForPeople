@@ -19,10 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.ahrorovk.duaforpeople.core.presentation.components.CustomButton
@@ -87,7 +85,11 @@ fun RegistrationScreen(
                     text = "Registration",
                     textSize = 16,
                     color = MaterialTheme.colorScheme.onBackground,
-                    isLoading = state.registrationState.isLoading
+                    isLoading = state.registrationState.isLoading,
+                    modifier = Modifier.padding(
+                        horizontal = 10.dp,
+                        vertical = 24.dp
+                    )
                 ) {
                     onEvent(RegistrationEvent.Registration)
                 }

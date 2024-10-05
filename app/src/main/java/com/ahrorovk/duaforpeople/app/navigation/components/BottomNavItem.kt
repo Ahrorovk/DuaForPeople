@@ -32,9 +32,14 @@ fun RowScope.BottomNavItem(
                     it.route == Routes.MainScreen.route
                 }
 
+                Routes.LinkScreen.route -> {
+                    it.route == Routes.LinkScreen.route
+                }
+
                 Routes.SenderRequestScreen.route -> {
                     it.route == Routes.SenderRequestScreen.route
                 }
+
                 Routes.UserScreen.route -> {
                     it.route == Routes.UserScreen.route
                 }

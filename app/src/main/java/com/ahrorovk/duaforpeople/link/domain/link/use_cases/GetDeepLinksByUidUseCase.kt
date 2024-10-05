@@ -13,9 +13,11 @@ class GetDeepLinksByUidUseCase @Inject constructor(
     operator fun invoke(uid: String): Flow<Resource<List<DeeplinkRequest>>> {
         return flow {
             try {
-
+                emit(Resource.Loading())
+                val response = repository.getDeepLinksByUid(uid)
+                emit(Resource.Success(response))
             } catch (e: Exception) {
-                
+                emit(Resource.Error(e.message.toString()))
             }
         }
     }

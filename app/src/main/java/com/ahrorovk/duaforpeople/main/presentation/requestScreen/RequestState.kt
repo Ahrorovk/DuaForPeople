@@ -6,5 +6,6 @@ data class RequestState(
     val duaDescription: String = "",
     val name: String = "",
     val answer: String = "",
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    val fcmToken: String = ""
 )

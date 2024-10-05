@@ -69,7 +69,9 @@ fun RequestScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    state.deeplink
+                    state.deeplink,
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
                 )
 
                 if (state.deeplink.isNotEmpty()) {

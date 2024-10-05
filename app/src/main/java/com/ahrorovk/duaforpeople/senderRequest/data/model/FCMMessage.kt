@@ -2,18 +2,11 @@ package com.ahrorovk.duaforpeople.senderRequest.data.model
 
 data class Notification(
     val body: String,
-    val title: String
-)
-
-data class Message(
-    val topic: String,
-    val notification: Notification
-)
-
-data class FCMMessage(
-    val message: Message
+    val title: String,
+    val token: String
 )
 
 data class FCMResponse(
-    val name: String
+    val statusCode: Int,
+    val status: String
 )

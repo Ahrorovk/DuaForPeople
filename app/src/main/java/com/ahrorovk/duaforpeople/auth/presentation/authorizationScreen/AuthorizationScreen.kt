@@ -77,7 +77,7 @@ fun AuthorizationScreen(
                     onValueChange = {
                         onEvent(AuthorizationEvent.OnPasswordChange(it))
                     },
-                    keyboardType = KeyboardType.Password
+                    keyboardType = KeyboardType.Password,
                 )
 
                 Spacer(modifier = Modifier.padding(5.dp))
@@ -86,7 +86,11 @@ fun AuthorizationScreen(
                     text = "Authorization",
                     textSize = 16,
                     color = MaterialTheme.colorScheme.onBackground,
-                    isLoading = state.authResponseState.isLoading
+                    isLoading = state.authResponseState.isLoading,
+                    modifier = Modifier.padding(
+                        horizontal = 10.dp,
+                        vertical = 24.dp
+                    )
                 ) {
                     onEvent(AuthorizationEvent.Authorization)
                 }

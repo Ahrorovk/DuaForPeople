@@ -4,6 +4,7 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -35,6 +36,11 @@ val bottomNavDestinations = listOf(
         label = "Dua",
         destinationRoute = Routes.SenderRequestScreen.route,
         icon = Icons.Default.Favorite
+    ),
+    BottomNavDestination(
+        label = "Links",
+        destinationRoute = Routes.LinkScreen.route,
+        icon = Icons.Default.Link
     ),
     BottomNavDestination(
         label = "Profile",

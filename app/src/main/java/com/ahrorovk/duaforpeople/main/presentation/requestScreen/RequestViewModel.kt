@@ -36,6 +36,14 @@ class RequestViewModel @Inject constructor(
                 )
             }
         }.launchIn(viewModelScope)
+
+        dataStoreManager.getFcmTokenKey.onEach { value ->
+            _state.update {
+                it.copy(
+                    fcmToken = value
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: RequestEvent) {
@@ -76,7 +84,8 @@ class RequestViewModel @Inject constructor(
                 "",
                 _state.value.deeplink,
                 _state.value.duaDescription,
-                _state.value.name
+                _state.value.name,
+                _state.value.fcmToken
             )
         ).onEach { result ->
             when (result) {

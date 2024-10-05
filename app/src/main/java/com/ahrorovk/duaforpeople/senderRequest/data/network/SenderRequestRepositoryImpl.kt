@@ -3,8 +3,8 @@ package com.ahrorovk.duaforpeople.senderRequest.data.network
 import com.ahrorovk.duaforpeople.core.domain.models.DeeplinkRequest
 import com.ahrorovk.duaforpeople.core.domain.models.DuaRequest
 import com.ahrorovk.duaforpeople.core.domain.states.DeeplinkRequestState
-import com.ahrorovk.duaforpeople.senderRequest.data.model.FCMMessage
 import com.ahrorovk.duaforpeople.senderRequest.data.model.FCMResponse
+import com.ahrorovk.duaforpeople.senderRequest.data.model.Notification
 import com.ahrorovk.duaforpeople.senderRequest.data.network.remote.SenderRequestApi
 import com.ahrorovk.duaforpeople.senderRequest.domain.SenderRequestRepository
 import com.google.firebase.Firebase
@@ -22,8 +22,8 @@ class SenderRequestRepositoryImpl @Inject constructor(
 
     override val messaging = FirebaseMessagingService()
 
-    override suspend fun sendMessage(authorization: String, fcmMessage: FCMMessage): FCMResponse {
-        return api.sendMessage(authorization, fcmMessage)
+    override suspend fun sendMessage(notification: Notification): FCMResponse {
+        return api.sendMessage(notification)
     }
 
     override suspend fun addDuaRequest(duaRequest: DuaRequest, onResult: (String) -> Unit) {

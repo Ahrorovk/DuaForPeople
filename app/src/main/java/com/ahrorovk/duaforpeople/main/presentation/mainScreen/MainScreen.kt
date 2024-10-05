@@ -36,8 +36,9 @@ fun MainScreen(
 
     val swipeRefreshState = rememberSwipeRefreshState(state.stateOfRequests.isLoading)
 
-    LaunchedEffect(true) {
-        onEvent(MainEvent.GetDuaRequestsByUid)
+    LaunchedEffect(Unit) {
+        if (state.stateOfRequests.response == null)
+            onEvent(MainEvent.GetDuaRequestsByUid)
     }
 
     CustomProgressIndicator(state.stateOfRequests.isLoading)

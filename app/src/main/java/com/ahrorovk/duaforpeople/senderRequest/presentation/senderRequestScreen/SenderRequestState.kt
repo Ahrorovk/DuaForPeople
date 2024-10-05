@@ -14,5 +14,6 @@ data class SenderRequestState(
     val limit: Int = 0,
     val isLoading: Boolean = false,
     val response: String = "",
-    val quantities: Int = 0
+    val quantities: Int = 0,
+    val fcmToken: String = ""
 )

@@ -76,6 +76,7 @@ fun Navigation(
                         actions = {
                             if (currentScreen == Routes.UserScreen.route) {
                                 CustomIconButton(icon = Icons.Default.ExitToApp) {
+                                    onEvent(NavigationEvent.ClearToken)
                                     navController.navigate(Routes.AuthorizationScreen.route) {
                                         popUpTo(Routes.UserScreen.route) {
                                             inclusive = true

@@ -10,7 +10,8 @@ fun doesScreenHavePopBack(currentScreen: String): Boolean {
     return currentScreen != Routes.MainScreen.route &&
             currentScreen != Routes.SenderRequestScreen.route &&
             currentScreen != Routes.UserScreen.route &&
-            currentScreen != Routes.StartScreen.route
+            currentScreen != Routes.StartScreen.route &&
+            currentScreen != Routes.LinkScreen.route
 }
 
 fun doesScreenHaveTopBar(currentScreen: String): Boolean {
@@ -26,6 +27,7 @@ fun getTopBarTitle(currentScreen: String): String {
         Routes.RequestScreen.route -> "Link"
         Routes.SenderRequestScreen.route -> "Dua"
         Routes.UserScreen.route -> "Profile"
+        Routes.LinkScreen.route -> "Links"
         else -> ""
     }
 }

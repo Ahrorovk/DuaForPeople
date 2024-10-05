@@ -5,6 +5,8 @@ sealed class Routes(val route: String) {
 
     object AuthorizationScreen : Routes("AuthorizationScreen")
 
+    object LinkScreen : Routes("LinkScreen")
+
     object MainScreen : Routes("MainScreen")
 
     object UserScreen : Routes("UserScreen")
